@@ -4,27 +4,27 @@ import java.util.Scanner;
 
 public class VistaTaller {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		Scanner leer = new Scanner(System.in);
 		int opcion;
 		do {
 			menuNavegacionGeneral();
-			opcion = sc.nextInt();
-			sc.nextLine(); // LIMPIAR BUFFER
-
+			opcion = leer.nextInt();
+			// ESTO SE USABA PARA LIMPIAR EL BUFFER
+			leer.nextLine();
 			switch (opcion) {
 			case 1:
-				iniciarSesion(sc);
+				iniciarSesion(leer);
 				break;
 			case 2:
 				verReparacionesFinalizadas();
 				break;
 			default:
-				System.out.println("Opción no válida. Inténtalo de nuevo.");
+				System.out.println("Opción inválida. Inténtalo de nuevo.");
 			}
 
 		} while (opcion != 0);
-		System.out.println("Saliendo del sistema...");
-		sc.close();
+		System.out.println("Saliendo...");
+		leer.close();
 
 	}
 
@@ -37,9 +37,9 @@ public class VistaTaller {
 	}
 
 	public static void menuNavegacionGeneral() {
-		System.out.println("\\MENÚ DE LA APLICACIÓN//");
-		System.out.println("Escoga que quiere hacer: \n");
-		System.out.println("0. Salir de la aplicación");
+		System.out.println("MENÚ");
+		System.out.println("Escoge qué quieres hacer: ");
+		System.out.println("0. Salir.");
 		System.out.println("1. Iniciar sesión");
 		System.out.println("2. Ver reparaciones finalizadas");
 	}

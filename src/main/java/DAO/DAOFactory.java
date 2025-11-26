@@ -1,5 +1,7 @@
 package DAO;
 
-public interface DAOFactory {
+import DAO.interfaces.ClienteDAOInterface;
 
+public interface DAOFactory {
+	ClienteDAOInterface getClienteDAO();
 }
