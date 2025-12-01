@@ -23,6 +23,8 @@ public class Reparacion {
 		this.vehiculo_id = vehiculo_id;
 		this.usuario_id = usuario_id;
 	}
+	
+	public Reparacion() {}
 
 	// GETTERS Y SETTERS
 	public int getId_reparacion() {

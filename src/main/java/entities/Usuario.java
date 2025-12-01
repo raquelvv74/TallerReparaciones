@@ -16,6 +16,8 @@ public class Usuario {
 		this.rol = rol;
 		this.dni = dni;
 	}
+	
+	public Usuario() {}
 
 	// GETTERS Y SETTERS
 	public int getId_usuario() {

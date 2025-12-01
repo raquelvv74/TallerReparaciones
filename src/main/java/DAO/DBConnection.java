@@ -1,7 +1,6 @@
 package DAO;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -9,52 +8,40 @@ import java.util.Properties;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class DBConnection {
-	private static DBConnection instance;
 
-	Connection conexionMySQL = null;
+    private static DBConnection instance;
+    private Connection conexionMySQL = null;
 
-	private DBConnection() {
-		try {
-			// Instanciar un datasource con mysql para que nos devuelva una conexion
+    private DBConnection() {
+        try {
+            // Cargar los datos del archivo de propiedades
+            Properties props = new Properties();
+            InputStream input = getClass().getClassLoader().getResourceAsStream("conexion.properties");
+            props.load(input);
 
-			// 1.1 Pasarle las propiedades a pelo
-			MysqlDataSource dataSource = new MysqlDataSource();
-//				dataSource.setServerName("localhost");
-//				dataSource.setPortNumber(3306);
-//				dataSource.setDatabaseName("prueba");
-//				dataSource.setUser("root");
-//				dataSource.setPassword("root");
+            // Configurar el datasource de MySQL
+            MysqlDataSource dataSource = new MysqlDataSource();
+            dataSource.setURL(props.getProperty("url"));
+            dataSource.setUser(props.getProperty("user"));
+            dataSource.setPassword(props.getProperty("password"));
 
-			// 1.2 Hacer con un FileInputStream
-			Properties props = new Properties();
-			FileInputStream file = new FileInputStream("src\\main\\resources\\conexion.properties");
-			props.load(file);
+            // Establecer la conexión
+            conexionMySQL = dataSource.getConnection();
+            System.out.println("> Conexión establecida correctamente");
 
-			dataSource.setUrl(props.getProperty("url"));
-			dataSource.setUser(props.getProperty("user"));
-			dataSource.setPassword(props.getProperty("password"));
-			file.close();
+        } catch (Exception e) {
+            System.err.println("> Error al conectar con MySQL: " + e.getMessage());
+        }
+    }
 
-			// 1.3 Cargar manualmente el driver (NO ACONSEJADO)
-//				Class.forName("com.mysql.cj.jdbc.Driver");
-//				conexion = DriverManager.getConnection("jdbc:mysql://localhost/prueba", "root", "root");
+    public static DBConnection getInstance() {
+        if (instance == null) {
+            instance = new DBConnection();
+        }
+        return instance;
+    }
 
-			// 1.4 Main
-			conexionMySQL = dataSource.getConnection();
-			System.out.println("> Conexión establecida correctamente");
-		} catch (SQLException | IOException e) {
-			System.err.println("> Error al conectar con mysql: " + e.getMessage());
-		}
-	}
-
-	public static DBConnection getInstance() {
-		if (instance == null) {
-			instance = new DBConnection();
-		}
-		return instance;
-	}
-
-	public Connection getConnection() {
-		return instance.conexionMySQL;
-	}
+    public Connection getConnection() {
+        return conexionMySQL;
+    }
 }

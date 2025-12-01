@@ -5,17 +5,19 @@ public class Cliente {
 	private String nombre;
 	private String email;
 	private String dni;
+	private String telefono;
 
-	// CONSTRUCTOR
-	public Cliente(int id_cliente, String nombre, String email, String dni) {
-		super();
+	// Constructor completo
+	public Cliente(int id_cliente, String nombre, String email, String dni, String telefono) {
 		this.id_cliente = id_cliente;
 		this.nombre = nombre;
 		this.email = email;
 		this.dni = dni;
+		this.telefono = telefono;
 	}
 
-	// GETTERS Y SETTERS
+
+	// Getters y setters
 	public int getId_cliente() {
 		return id_cliente;
 	}
@@ -48,4 +50,11 @@ public class Cliente {
 		this.dni = dni;
 	}
 
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
 }

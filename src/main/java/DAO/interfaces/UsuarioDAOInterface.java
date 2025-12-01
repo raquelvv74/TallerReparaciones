@@ -1,7 +1,8 @@
 package DAO.interfaces;
 
-import DAO.MySQL.ArrayList;
-import DAO.MySQL.Usuario;
+import java.util.ArrayList;
+
+import entities.Usuario;
 
 public interface UsuarioDAOInterface {
 	boolean login(String dni, String password);
